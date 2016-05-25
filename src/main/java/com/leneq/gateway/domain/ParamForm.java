@@ -41,4 +41,11 @@ public class ParamForm {
 	public void setEchostr(String echostr) {
 		this.echostr = echostr;
 	}
+
+	@Override
+	public String toString() {
+		return "ParamForm [signature=" + signature + ", timestamp=" + timestamp
+				+ ", nonce=" + nonce + ", echostr=" + echostr + "]";
+	}
+	
 }
