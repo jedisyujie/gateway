@@ -23,20 +23,6 @@ public class WeChat {
 	
 	private static Logger logger = LoggerFactory.getLogger(WeChat.class);
 	
-	private static final String REP_XML="<xml>"
-
-									+	"<ToUserName><![CDATA[%s]]></ToUserName>"
-							
-									+	"<FromUserName><![CDATA[%s]]></FromUserName>"
-							
-									+	"<CreateTime>%s</CreateTime>"
-							
-									+	"<MsgType><![CDATA[%s]]></MsgType>"
-							
-									+	"<Content><![CDATA[%s]]></Content>"
-							
-									+	"</xml>";
-
 	@RequestMapping(value = "router")
 	public void router(ParamForm params, HttpServletRequest request, HttpServletResponse response ){
 		try {
@@ -49,18 +35,15 @@ public class WeChat {
 				outMessage.setFromUserName(inMessage.getToUserName());
 				outMessage.setToUserName(inMessage.getFromUserName());
 				outMessage.setCreateTime(new Date().getTime()+"");
-				outMessage.setMsgType(inMessage.getMsgType());
-				outMessage.setContent(inMessage.getContent());
-				//String outStr = XmlUtil.convertToXmlString(outMessage);
 				String outStr = null;
 				switch (inMessage.getMsgType()) {
 				case "text": 
-//					outStr = genMessage( outMessage);
+					outMessage.setMsgType(inMessage.getMsgType());
+					outMessage.setContent(inMessage.getContent());
 					break;
 				case "voice":
 					outMessage.setMsgType("text");
 					outMessage.setContent(inMessage.getRecognition());
-//					outStr = genMessage( outMessage);
 					break;
 				default:
 					break;
@@ -74,13 +57,6 @@ public class WeChat {
 		} catch (Exception e) {
 			logger.error("system error :{}", e);
 		}
-	}
-
-	private String genMessage(OutMessage outMessage) {
-		String outStr;
-		outStr = String.format(REP_XML, outMessage.getToUserName(),outMessage.getFromUserName(),outMessage.getCreateTime(),
-				outMessage.getMsgType(),outMessage.getContent());
-		return outStr;
 	}
 
 	private InMessage fetchInmessage(HttpServletRequest request)
