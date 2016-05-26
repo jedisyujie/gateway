@@ -55,8 +55,8 @@ public class WeChat {
 				outMessage.setContent("hello, welcome to my home, and you will start an amazing journey!");
 				//String outStr = XmlUtil.convertToXmlString(outMessage);
 				String outStr = String.format(REP_XML, 
-													inMessage.getToUserName(),
 													inMessage.getFromUserName(),
+													inMessage.getToUserName(),
 													inMessage.getMsgType(),
 													outMessage.getContent()
 													);
