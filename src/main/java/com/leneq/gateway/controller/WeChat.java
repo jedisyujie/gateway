@@ -17,6 +17,14 @@ public class WeChat {
 	
 	private static Logger logger = LoggerFactory.getLogger(WeChat.class);
 
+	private static final String REP_XML="<xml>"
+										+	"<ToUserName><![CDATA[toUser]]></ToUserName>"
+										+	"	<FromUserName><![CDATA[fromUser]]></FromUserName>"
+										+	"	<CreateTime>12345678</CreateTime>"
+										+	"	<MsgType><![CDATA[text]]></MsgType>"
+										+	"	<Content><![CDATA[你好]]></Content>"
+										+	"</xml>";
+	
 	@RequestMapping(value = "router")
 	public void router(ParamForm params, HttpServletRequest request, HttpServletResponse response ){
 		logger.info(params.toString());
@@ -24,6 +32,8 @@ public class WeChat {
 			HttpUtil.writeXmlToClient(response, params.getEchostr());
 		}else{
 			logger.info(request.getMethod());
+			logger.info(REP_XML);
+			HttpUtil.writeXmlToClient(response, REP_XML);
 		}
 	}
 }

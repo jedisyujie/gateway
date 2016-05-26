@@ -118,3 +118,16 @@
 2016-05-25 23:20:48,011 INFO [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-servlet': startup date [Wed May 25 23:20:47 CST 2016]; parent: Root WebApplicationContext
 2016-05-25 23:20:48,058 INFO [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-servlet': startup date [Wed May 25 23:20:47 CST 2016]; parent: Root WebApplicationContext
 2016-05-25 23:20:48,355 INFO [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'mvc': initialization completed in 1047 ms
+2016-05-26 09:31:29,963 INFO [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization started
+2016-05-26 09:31:29,994 INFO [org.springframework.web.context.support.XmlWebApplicationContext] - Refreshing Root WebApplicationContext: startup date [Thu May 26 09:31:29 CST 2016]; root of context hierarchy
+2016-05-26 09:31:30,025 INFO [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [spring/applicationContext.xml]
+2016-05-26 09:31:30,197 INFO [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 234 ms
+2016-05-26 09:31:30,213 INFO [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'mvc': initialization started
+2016-05-26 09:31:30,228 INFO [org.springframework.web.context.support.XmlWebApplicationContext] - Refreshing WebApplicationContext for namespace 'mvc-servlet': startup date [Thu May 26 09:31:30 CST 2016]; parent: Root WebApplicationContext
+2016-05-26 09:31:30,228 INFO [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] - Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-servlet.xml]
+2016-05-26 09:31:30,369 INFO [org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-05-26 09:31:30,432 INFO [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/hello]}" onto public java.lang.String com.leneq.gateway.controller.Hello.sayHello()
+2016-05-26 09:31:30,432 INFO [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/wechat/router]}" onto public void com.leneq.gateway.controller.WeChat.router(com.leneq.gateway.domain.ParamForm,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-05-26 09:31:30,588 INFO [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-servlet': startup date [Thu May 26 09:31:30 CST 2016]; parent: Root WebApplicationContext
+2016-05-26 09:31:30,619 INFO [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: WebApplicationContext for namespace 'mvc-servlet': startup date [Thu May 26 09:31:30 CST 2016]; parent: Root WebApplicationContext
+2016-05-26 09:31:30,713 INFO [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'mvc': initialization completed in 500 ms
