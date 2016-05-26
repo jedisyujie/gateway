@@ -55,17 +55,17 @@ public class WeChat {
 				String outStr = null;
 				switch (inMessage.getMsgType()) {
 				case "text": 
-					outStr = genMessage( outMessage);
+//					outStr = genMessage( outMessage);
 					break;
 				case "voice":
 					outMessage.setMsgType("text");
 					outMessage.setContent(inMessage.getRecognition());
-					outStr = genMessage( outMessage);
+//					outStr = genMessage( outMessage);
 					break;
 				default:
 					break;
 				}
-				
+				outStr = XmlUtil.convertToXmlString(outMessage);
 				logger.info("message to wechat:{}",outStr);
 				HttpUtil.writeXmlToClient(response, outStr);
 			}
