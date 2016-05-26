@@ -22,6 +22,20 @@ import com.leneq.gateway.util.XmlUtil;
 public class WeChat {
 	
 	private static Logger logger = LoggerFactory.getLogger(WeChat.class);
+	
+	private static final String REP_XML="<xml>"
+
+									+	"<ToUserName><![CDATA[%s]]></ToUserName>"
+							
+									+	"<FromUserName><![CDATA[%s]]></FromUserName>"
+							
+									+	"<CreateTime>12345678</CreateTime>"
+							
+									+	"<MsgType><![CDATA[%s]]></MsgType>"
+							
+									+	"<Content><![CDATA[%s]]></Content>"
+							
+									+	"</xml>";
 
 	@RequestMapping(value = "router")
 	public void router(ParamForm params, HttpServletRequest request, HttpServletResponse response ){
@@ -39,7 +53,13 @@ public class WeChat {
 				outMessage.setMsgType(inMessage.getMsgType());
 				outMessage.setToUserName(inMessage.getToUserName());
 				outMessage.setContent("hello, welcome to my home, and you will start an amazing journey!");
-				String outStr = XmlUtil.convertToXmlString(outMessage);
+				//String outStr = XmlUtil.convertToXmlString(outMessage);
+				String outStr = String.format(REP_XML, 
+													inMessage.getToUserName(),
+													inMessage.getFromUserName(),
+													inMessage.getMsgType(),
+													outMessage.getContent()
+													);
 				logger.info("message to wechat:{}",outStr);
 				HttpUtil.writeXmlToClient(response, outStr);
 			}
@@ -49,5 +69,4 @@ public class WeChat {
 			logger.error("system error :{}", e);
 		}
 	}
-	
 }
