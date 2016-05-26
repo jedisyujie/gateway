@@ -29,7 +29,7 @@ public class WeChat {
 							
 									+	"<FromUserName><![CDATA[%s]]></FromUserName>"
 							
-									+	"<CreateTime>12345678</CreateTime>"
+									+	"<CreateTime>%s</CreateTime>"
 							
 									+	"<MsgType><![CDATA[%s]]></MsgType>"
 							
@@ -44,22 +44,28 @@ public class WeChat {
 			if("GET".equals(request.getMethod())){			
 				HttpUtil.writeXmlToClient(response, params.getEchostr());
 			}else{
-				String xmlStr = XmlUtil.getStrFromInputStream(request.getInputStream());
-				logger.info("message from wechat:{}",xmlStr);
-				InMessage inMessage = XmlUtil.convertToObject(xmlStr, InMessage.class);
+				InMessage inMessage = fetchInmessage(request);
 				OutMessage outMessage = new OutMessage();
-				outMessage.setFromUserName(inMessage.getFromUserName());
+				outMessage.setFromUserName(inMessage.getToUserName());
+				outMessage.setToUserName(inMessage.getFromUserName());
 				outMessage.setCreateTime(new Date().getTime()+"");
 				outMessage.setMsgType(inMessage.getMsgType());
-				outMessage.setToUserName(inMessage.getToUserName());
-				outMessage.setContent("hello, welcome to my home, and you will start an amazing journey!");
+				outMessage.setContent(inMessage.getContent());
 				//String outStr = XmlUtil.convertToXmlString(outMessage);
-				String outStr = String.format(REP_XML, 
-													inMessage.getFromUserName(),
-													inMessage.getToUserName(),
-													inMessage.getMsgType(),
-													outMessage.getContent()
-													);
+				String outStr = null;
+				switch (inMessage.getMsgType()) {
+				case "text": 
+					outStr = genMessage( outMessage);
+					break;
+				case "voice":
+					outMessage.setMsgType("text");
+					outMessage.setContent(inMessage.getRecognition());
+					outStr = genMessage( outMessage);
+					break;
+				default:
+					break;
+				}
+				
 				logger.info("message to wechat:{}",outStr);
 				HttpUtil.writeXmlToClient(response, outStr);
 			}
@@ -68,5 +74,20 @@ public class WeChat {
 		} catch (Exception e) {
 			logger.error("system error :{}", e);
 		}
+	}
+
+	private String genMessage(OutMessage outMessage) {
+		String outStr;
+		outStr = String.format(REP_XML, outMessage.getToUserName(),outMessage.getFromUserName(),outMessage.getCreateTime(),
+				outMessage.getMsgType(),outMessage.getContent());
+		return outStr;
+	}
+
+	private InMessage fetchInmessage(HttpServletRequest request)
+			throws Exception, IOException {
+		String xmlStr = XmlUtil.getStrFromInputStream(request.getInputStream());
+		logger.info("message from wechat:{}",xmlStr);
+		InMessage inMessage = XmlUtil.convertToObject(xmlStr, InMessage.class);
+		return inMessage;
 	}
 }
