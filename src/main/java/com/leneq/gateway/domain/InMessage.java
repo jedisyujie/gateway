@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "xml")
-public class WechatMsg {
+public class InMessage {
 
 	private String toUserName;
 	
@@ -74,10 +74,10 @@ public class WechatMsg {
 
 	@Override
 	public String toString() {
-		return "WechatMsg [toUsername=" + toUserName + ", fromUserName="
+		return "InMessage [toUserName=" + toUserName + ", fromUserName="
 				+ fromUserName + ", createTime=" + createTime + ", msgType="
 				+ msgType + ", content=" + content + ", msgId=" + msgId + "]";
 	}
-	
+
 }
 
